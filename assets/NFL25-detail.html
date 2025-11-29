@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Madden NFL 25 | Hit With Impact</title>
+    
+    <!-- Bootstrap 5 CSS --><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Google Fonts --><link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Oswald:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --ea-green: #00ff41; /* Primary accent green */
+            --ea-dark-bg: #1a0f3d; /* Dark purple/blue background */
+            --ea-medium-bg: #2a1f4d; /* Slightly lighter bg for sections */
+            --ea-light-text: #e0e0e0;
+            --ea-gray-text: #999999;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--ea-dark-bg);
+            color: var(--ea-light-text);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, .navbar-brand, .btn {
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+        }
+
+        /* Navbar Customization */
+        .navbar {
+            background-color: rgba(26, 15, 61, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid var(--ea-green);
+        }
+
+        .navbar-brand {
+            color: var(--ea-light-text);
+            font-weight: 800;
+            font-size: 1.6rem;
+        }
+
+        .navbar-brand i {
+            color: var(--ea-green);
+            margin-right: 5px;
+        }
+
+        .nav-link {
+            color: var(--ea-light-text) !important;
+            transition: color 0.3s ease, border-bottom 0.3s ease;
+            font-size: 1.1rem;
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--ea-green);
+            transition: width 0.3s;
+        }
+
+        .nav-link:hover::after, .nav-link.active::after {
+            width: 100%;
+        }
+
+        /* Buttons */
+        .btn-ea-primary {
+            background-color: var(--ea-green);
+            color: var(--ea-dark-bg);
+            padding: 12px 35px;
+            border-radius: 5px;
+            font-weight: 600;
+            border: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn-ea-primary:hover {
+            background-color: #00ff88;
+            color: var(--ea-dark-bg);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 255, 65, 0.3);
+        }
+
+        .btn-ea-outline {
+            background-color: transparent;
+            border: 2px solid var(--ea-green);
+            color: var(--ea-green);
+            padding: 12px 35px;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-ea-outline:hover {
+            background-color: var(--ea-green);
+            color: var(--ea-dark-bg);
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            height: 100vh;
+            min-height: 700px;
+            background: linear-gradient(135deg, rgba(26,15,61,0.9) 0%, rgba(26,15,61,0.7) 50%, rgba(26,15,61,0.5) 100%), url('https://placehold.co/2a1f4d/e0e0e0'); /* Removed dimensions from URL */
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            text-align: center;
+        }
+
+        .hero-section h1 {
+            font-size: 4.5rem;
+            font-weight: 800;
+            line-height: 1;
+            margin-bottom: 20px;
+            color: var(--ea-green);
+            text-shadow: 0 0 15px rgba(0, 255, 65, 0.4);
+        }
+
+        .hero-section .subtitle {
+            font-size: 1.3rem;
+            color: var(--ea-light-text);
+            margin-bottom: 30px;
+        }
+
+        .badge-ea {
+            background-color: var(--ea-green);
+            color: var(--ea-dark-bg);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        /* Section Styling */
+        .section-title {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--ea-green);
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--ea-green);
+            border-radius: 2px;
+        }
+
+        /* Updates Section */
+        .updates-carousel .carousel-item {
+            background-color: var(--ea-medium-bg);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: left;
+            border: 1px solid rgba(0,255,65,0.2);
+        }
+
+        .updates-carousel .carousel-control-prev,
+        .updates-carousel .carousel-control-next {
+            width: 5%;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+
+        .updates-carousel .carousel-control-prev:hover,
+        .updates-carousel .carousel-control-next:hover {
+            opacity: 1;
+        }
+
+        .updates-carousel .carousel-control-prev-icon,
+        .updates-carousel .carousel-control-next-icon {
+            filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(287deg) brightness(108%) contrast(101%); /* White icon */
+            background-color: rgba(0,0,0,0.5);
+            border-radius: 50%;
+            padding: 15px;
+        }
+
+        /* Feature Grid */
+        .feature-card {
+            background-color: var(--ea-medium-bg);
+            padding: 30px;
+            border-radius: 10px;
+            height: 100%;
+            transition: transform 0.3s, border-color 0.3s;
+            border: 1px solid transparent;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--ea-green);
+            box-shadow: 0 5px 20px rgba(0, 255, 65, 0.15);
+        }
+
+        .feature-card i {
+            font-size: 3rem;
+            color: var(--ea-green);
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--ea-light-text);
+        }
+
+        .feature-card p {
+            color: var(--ea-gray-text);
+        }
+
+        /* Game Modes */
+        .game-mode-card {
+            background-color: var(--ea-medium-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s;
+            position: relative;
+        }
+
+        .game-mode-card:hover {
+            transform: scale(1.03);
+        }
+
+        .game-mode-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            filter: brightness(0.7);
+            transition: filter 0.3s;
+        }
+
+        .game-mode-card:hover img {
+            filter: brightness(1);
+        }
+
+        .game-mode-card .card-body {
+            padding: 20px;
+        }
+
+        .game-mode-card h4 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--ea-green);
+            margin-top: 15px;
+        }
+
+        .game-mode-card p {
+            color: var(--ea-gray-text);
+        }
+
+        /* Call to Action */
+        .cta-section {
+            background: linear-gradient(90deg, #1a0f3d 0%, #2a1f4d 50%, #1a0f3d 100%);
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: 3.5rem;
+            color: var(--ea-light-text);
+            margin-bottom: 40px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: black;
+            padding: 60px 0 30px;
+            border-top: 1px solid #333;
+            color: var(--ea-gray-text);
+            font-size: 0.9rem;
+        }
+
+        footer h5 {
+            color: var(--ea-light-text);
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        footer a {
+            color: var(--ea-gray-text);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 10px;
+            transition: color 0.3s;
+        }
+
+        footer a:hover {
+            color: var(--ea-green);
+        }
+
+        .social-icons a {
+            color: var(--ea-light-text);
+            font-size: 1.5rem;
+            margin-right: 20px;
+            transition: color 0.3s;
+        }
+
+        .social-icons a:hover {
+            color: var(--ea-green);
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .hero-section h1 { font-size: 3rem; }
+            .hero-section .subtitle { font-size: 1rem; }
+            .section-title { font-size: 2.2rem; }
+            .cta-section h2 { font-size: 2.5rem; }
+            .navbar-brand { font-size: 1.3rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar --><nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#"><i class="fas fa-bolt"></i> EA SPORTS</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link active" href="#home">Games</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#updates">Features</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#features">Updates</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section (Image 1 style) --><section id="home" class="hero-section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <span class="badge-ea mb-3">WELCOME TO THE FUTURE</span>
+                    <h1>MADDEN NFL 25: <br>HIT WITH IMPACT</h1>
+                    <p class="subtitle">Experience the next generation of FieldSENSE™ with new physics-based tackling. Feel the power and strategy of professional football.</p>
+                    <div class="d-flex justify-content-center gap-3">
+                        <a href="#" class="btn btn-ea-primary btn-lg">PRE-ORDER NOW</a>
+                        <a href="#" class="btn btn-ea-outline btn-lg">WATCH TRAILER</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Latest Updates & Promotions (Image 2 style) --><section id="updates" class="py-5 bg-gradient">
+        <div class="container py-5">
+            <h2 class="section-title">Latest Updates & Game Modes</h2>
+            <div id="updatesCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active updates-carousel-item">
+                        <div class="row align-items-center">
+                            <div class="col-lg-8">
+                                <img src="https://drop-assets.ea.com/images/4aFpfYXfX7PYywkjfbpHS8/483fb9d025c3305fef3b811b213afec8/Madden_Screenshots_StiffArm_1080x1080.jpg?im=Resize=(2560)&q=80" class="img-fluid rounded" alt="BOOM Tech">
+                            </div>
+                            <div class="col-lg-4 p-4">
+                                <h3 class="text-ea-green">BOOM Tech Deep Dive</h3>
+                                <p class="text-ea-light">Get a closer look at the new physics-based tackling and groundbreaking animations that redefine impact.</p>
+                                <a href="#" class="btn btn-sm btn-ea-primary">LEARN MORE</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item updates-carousel-item">
+                        <div class="row align-items-center">
+                            <div class="col-lg-8">
+                                <img src="https://drop-assets.ea.com/images/6mMpRKacgD7PVHVegu5ezk/2301fb46b9c8f5a5c7e765ca4a79e4c6/Franchise_1x1.png?im=Resize=(2560)&q=80" class="img-fluid rounded" alt="Franchise Mode">
+                            </div>
+                            <div class="col-lg-4 p-4">
+                                <h3 class="text-ea-green">Franchise Mode Enhancements</h3>
+                                <p class="text-ea-light">New scouting mechanics, expanded player progression, and more control over your team's destiny.</p>
+                                <a href="#" class="btn btn-sm btn-ea-primary">EXPLORE</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item updates-carousel-item">
+                        <div class="row align-items-center">
+                            <div class="col-lg-8">
+                                <img src="https://drop-assets.ea.com/images/5aASDfsovRF8TwrMHBtD9C/e4848bd0bf2efb6bf055a7895f2aa2e6/MUT_1x1.png?im=Resize=(2560)&q=80" class="img-fluid rounded" alt="Ultimate Team">
+                            </div>
+                            <div class="col-lg-4 p-4">
+                                <h3 class="text-ea-green">Ultimate Team Season 1 Rewards</h3>
+                                <p class="text-ea-light">Unlock exclusive player items and cosmetic customization options as you build your dream roster.</p>
+                                <a href="#" class="btn btn-sm btn-ea-primary">VIEW REWARDS</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#updatesCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#updatesCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose NFL 25? (Image 3 style) --><section id="features" class="py-5">
+        <div class="container py-5">
+            <h2 class="section-title">Why Madden NFL 25?</h2>
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-card text-center">
+                        <i class="fas fa-fist-raised"></i>
+                        <h3>BOOM Tech</h3>
+                        <p>Experience ground-breaking physics-based tackling and lifelike collisions that redefine impact.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-card text-center">
+                        <i class="fas fa-trophy"></i>
+                        <h3>Enhanced Franchise</h3>
+                        <p>Dive into deeper team management, strategic draft choices, and dynamic player progression.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-card text-center">
+                        <i class="fas fa-users"></i>
+                        <h3>Ultimate Team</h3>
+                        <p>Build your ultimate dream roster with new player cards, challenges, and competitive seasons.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-card text-center">
+                        <i class="fas fa-bolt"></i>
+                        <h3>Authentic Gameplay</h3>
+                        <p>Realistic player movement, smarter AI, and detailed playbooks bring the NFL to life.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-card text-center">
+                        <i class="fas fa-lock"></i>
+                        <h3>Competitive Multiplayer</h3>
+                        <p>Test your skills against others in seamless online matches and climb the global leaderboards.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-card text-center">
+                        <i class="fas fa-rocket"></i>
+                        <h3>Regular Roster Updates</h3>
+                        <p>Stay current with up-to-date player rosters, ratings, and real-world NFL events.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Game Modes (Image 4 style - adapted for internal modes) --><section class="py-5 bg-dark">
+        <div class="container py-5">
+            <h2 class="section-title">Dive Into Key Game Modes</h2>
+            <div class="row g-4 justify-content-center">
+                <div class="col-md-6 col-lg-4">
+                    <div class="game-mode-card text-center">
+                        <img src="https://drop-assets.ea.com/images/6mMpRKacgD7PVHVegu5ezk/2301fb46b9c8f5a5c7e765ca4a79e4c6/Franchise_1x1.png?im=Resize=(2560)&q=80" alt="Franchise Mode">
+                        <div class="card-body">
+                            <h4>Franchise Mode</h4>
+                            <p>Build your NFL dynasty, manage your roster, draft stars, and lead your team to a Super Bowl title.</p>
+                            <a href="#" class="btn btn-ea-outline btn-sm">START YOUR DYNASTY</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="game-mode-card text-center">
+                        <img src="https://drop-assets.ea.com/images/5aASDfsovRF8TwrMHBtD9C/e4848bd0bf2efb6bf055a7895f2aa2e6/MUT_1x1.png?im=Resize=(2560)&q=80" alt="Ultimate Team">
+                        <div class="card-body">
+                            <h4>Ultimate Team</h4>
+                            <p>Collect, build, and compete with your dream team of NFL legends and current stars.</p>
+                            <a href="#" class="btn btn-ea-outline btn-sm">BUILD YOUR SQUAD</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="game-mode-card text-center">
+                        <img src="https://drop-assets.ea.com/images/5udBVD9lu55PTi7GryDwSe/81c801d22c527cb2da8334e881714dff/Superstar_1x1.png?im=Resize=(2560)&q=80" alt="Superstar Mode">
+                        <div class="card-body">
+                            <h4>Superstar Mode</h4>
+                            <p>Create your own player, dominate the combine, and forge your path to NFL superstardom.</p>
+                            <a href="#" class="btn btn-ea-outline btn-sm">BE A SUPERSTAR</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action (Image 5 style) --><section class="cta-section">
+        <div class="container">
+            <h2 class="text-white">Ready to Dominate the Field?</h2>
+            <p class="lead mb-5 text-ea-light" style="max-width: 700px; margin: 0 auto 50px;">
+                Download EA Sports now and get exclusive rewards for new players. Start your gaming journey today!
+            </p>
+            <a href="#" class="btn btn-ea-primary btn-lg">PRE-ORDER NOW</a>
+        </div>
+    </section>
+
+    <!-- Footer (Image 5 style) --><footer id="contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-6 mb-4">
+                    <h5>Games</h5>
+                    <a href="#">Madden NFL</a>
+                    <a href="#">FC 25</a>
+                    <a href="#">NBA Live</a>
+                    <a href="#">NHL</a>
+                </div>
+                <div class="col-md-3 col-6 mb-4">
+                    <h5>Community</h5>
+                    <a href="#">Forums</a>
+                    <a href="#">Discord</a>
+                    <a href="#">Twitch</a>
+                    <a href="#">YouTube</a>
+                </div>
+                <div class="col-md-3 col-6 mb-4">
+                    <h5>Support</h5>
+                    <a href="#">Help Center</a>
+                    <a href="#">Contact Us</a>
+                    <a href="#">Report Bug</a>
+                    <a href="#">FAQ</a>
+                </div>
+                <div class="col-md-3 col-6 mb-4">
+                    <h5>Legal</h5>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Cookie Policy</a>
+                    <a href="#">Careers</a>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col-12 text-center">
+                    <div class="social-icons mb-3">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                    <p class="mb-0">&copy; 2024 Electronic Arts Inc. EA, EA SPORTS, and the EA SPORTS logo are trademarks of Electronic Arts Inc.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS Bundle --><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
